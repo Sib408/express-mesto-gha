@@ -1,6 +1,8 @@
 [![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml)
 # Проект Mesto фронтенд + бэкенд
-
+Знакомство бекендом для проекта Mesto. 
+Cсылка на git репозиторий
+## https://github.com/Sib408/express-mesto-gha.git
 
 ## Директории
 
