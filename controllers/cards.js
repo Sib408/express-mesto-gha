@@ -21,10 +21,16 @@ const createCard = (req, res) => {
 };
 
 const deleteCard = (req, res) => {
-  Card.findById(req.params.cardId)
+  Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
         return res.status(404).send({ message: 'Карточка не найдена' });
+      }
+      return res.send({ data: card });
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return res.status(400).send({ message: 'Некорректные данные id' });
       }
       return res.status(500).send({ message: 'Ошибка на сервере' });
     });
@@ -38,7 +44,7 @@ const likeCard = (req, res) => {
   )
     .then((card) => {
       if (!card) {
-        return res.status(400).send({ message: 'Карточка не найдена' });
+        return res.status(404).send({ message: 'Карточка не найдена' });
       }
       return res.status(200).send({ data: card });
     })
