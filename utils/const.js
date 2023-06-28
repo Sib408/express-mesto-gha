@@ -1,4 +1,4 @@
-const http2 = require('http2');
+const http2 = require('node:http2');
 
 const STATUS_OK = http2.constants.HTTP_STATUS_STATUS_OK; // 200;
 const STATUS_CREATED = http2.constants.HTTP_STATUS_STATUS_CREATED; // 201;
