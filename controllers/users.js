@@ -15,13 +15,13 @@ const getUserById = (req, res) => {
   User.findById(req.params.userId)
     .then((users) => {
       if (!users) {
-        return res.status(BAD_REQUEST_ERROR).send({ message: 'Пользователь не найден' });
+        return res.status(NOT_FOUND_ERROR).send({ message: 'Пользователь не найден' });
       }
       return res.send({ data: users });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(NOT_FOUND_ERROR).send({ message: 'Некорректные данные id' });
+        return res.status(BAD_REQUEST_ERROR).send({ message: 'Некорректные данные id' });
       }
       return res.status(ERROR_SERVER).send({ message: 'Ошибка на сервере' });
     });
@@ -41,7 +41,7 @@ const createUsers = (req, res) => {
     .then((user) => res.status(201).send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(NOT_FOUND_ERROR).send({ message: 'Некорректные данные пользователя' });
+        return res.status(BAD_REQUEST_ERROR).send({ message: 'Некорректные данные пользователя' });
       }
       return res.status(ERROR_SERVER).send({ message: 'Ошибка на сервере' });
     });
@@ -52,13 +52,13 @@ const updateUser = (req, res) => {
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
-        return res.status(BAD_REQUEST_ERROR).send({ message: 'Пользователь не найден' });
+        return res.status(NOT_FOUND_ERROR).send({ message: 'Пользователь не найден' });
       }
       return res.send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(NOT_FOUND_ERROR).send({ message: 'Некорректные данные пользователя' });
+        return res.status(BAD_REQUEST_ERROR).send({ message: 'Некорректные данные пользователя' });
       }
       return res.status(ERROR_SERVER).send({ message: 'Ошибка на сервере' });
     });
@@ -70,13 +70,13 @@ const updateAvatar = (req, res) => {
 
     .then((user) => {
       if (!user) {
-        return res.status(BAD_REQUEST_ERROR).send({ message: 'Пользователь не найден' });
+        return res.status(NOT_FOUND_ERROR).send({ message: 'Пользователь не найден' });
       }
       return res.send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(NOT_FOUND_ERROR).send({ message: 'Некорректные данные пользователя' });
+        return res.status(BAD_REQUEST_ERROR).send({ message: 'Некорректные данные пользователя' });
       }
       return res.status(ERROR_SERVER).send({ message: 'Ошибка на сервере' });
     });
