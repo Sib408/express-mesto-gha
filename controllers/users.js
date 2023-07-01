@@ -7,13 +7,24 @@ const { NotFoundError, UnauthorizedError, BadRequestError, ConflictError } = req
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
-  return User.findUserByCredentials(email, password)
+  return User
+    .findOne({ email })
+    .select('+password')
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' });
-
-      res.send({ token });
+      if (!user) {
+        return next(new UnauthorizedError('Неверная почта или пароль'));
+      }
+      return bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            return next(new UnauthorizedError('Неверная почта или пароль'));
+          }
+          const token = jwt.sign({ _id: user._id }, 'secret-person-key', { expiresIn: '7d' });
+          res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
+          return res.status(200).send({ token });
+        });
     })
-    .catch(() => next(new UnauthorizedError('Неверная почта или пароль')));
+    .catch(next);
 };
 
 const getUsers = (req, res, next) => {
