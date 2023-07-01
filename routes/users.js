@@ -5,15 +5,15 @@ const {
   getCurrentUser,
   updateUser,
   updateAvatar,
-  getUserById,
-  createUsers
+  getUserById
 } = require('../controllers/users');
+
+const { validateUpdateUser, validateUserId, validateAvatar } = require('../utils/validation');
 
 usersRouter.get('/', getUsers);
 usersRouter.get('/me', getCurrentUser);
-usersRouter.get('/:userId', getUserById);
-usersRouter.post('/', createUsers);
-usersRouter.patch('/me', updateUser);
-usersRouter.patch('/me/avatar', updateAvatar);
+usersRouter.get('/:userId', validateUserId, getUserById);
+usersRouter.patch('/me', validateUpdateUser, updateUser);
+usersRouter.patch('/me/avatar', validateAvatar, updateAvatar);
 
 module.exports = usersRouter;

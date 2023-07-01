@@ -9,7 +9,13 @@ const cardSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator (v) {
+        return /(:?(?:https?:\/\/)?(?:www\.)?)?[-a-z0-9]+\.\w/gi.test(v);
+      },
+      message: 'Неверный формат ссылки'
+    }
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

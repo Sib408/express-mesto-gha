@@ -1,14 +1,16 @@
 const router = require('express').Router();
-const { NOT_FOUND_ERROR } = require('../utils/const');
+const { NotFoundError } = require('../utils/errors/index');
+const { validateLogin, validateUser } = require('../utils/validation');
+const { login, createUsers } = require('../controllers/users');
+const { errors } = require('celebrate');
+
 const usersRouter = require('./users');
 const cardsRouter = require('./cards');
 
+router.post('/signin', validateLogin, login);
+router.post('/signup', validateUser, createUsers);
 router.use('/users', usersRouter);
 router.use('/cards', cardsRouter);
-router.use('/*', (req, res) => {
-  res
-    .status(NOT_FOUND_ERROR)
-    .send({ message: 'Карточка не найдена' });
-});
-
+router.use('/*', (req, res, next) => next(new NotFoundError('Карточка не найдена')));
+router.use(errors());
 module.exports = router;
