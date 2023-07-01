@@ -32,7 +32,7 @@ const deleteCard = (req, res, next) => {
 
       return res.send({ data: card });
     })
-    .then((card) => Card.deleteOne(card))
+    .then((card) => Card.deleteOne({ data: card })))
     .then(() => res.status(STATUS_OK).send({ message: 'Карточка удалена' }))
     .catch(next);
 };
