@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { NotFoundError } = require('../utils/errors/index');
 const { validateLogin, validateUser } = require('../utils/validation');
 const { login, createUsers } = require('../controllers/users');
-const { validateToken } = require('../middlewars/auth');
+const validateToken = require('../middlewars/auth');
 const { errors } = require('celebrate');
 
 const usersRouter = require('./users');
