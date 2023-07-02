@@ -21,7 +21,7 @@ const login = (req, res, next) => {
           }
           const token = jwt.sign({ _id: user._id }, 'secret-person-key', { expiresIn: '7d' });
           res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
-          return res.status(200).send({ token });
+          return res.status(STATUS_OK).send({ token });
         });
     })
     .catch(next);

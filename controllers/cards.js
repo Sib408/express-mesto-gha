@@ -4,9 +4,9 @@ const { BadRequestError, NotFoundError, ForbiddenError } = require('../utils/err
 
 const getCards = (req, res, next) => {
   Card.find({})
-    .populate('owner')
+    // .populate('owner')
     .then((cards) => res.status(STATUS_OK).send({ data: cards }))
-    .catch((err) => next(err));
+    .catch(next);
 };
 
 const createCard = (req, res, next) => {

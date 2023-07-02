@@ -7,7 +7,7 @@ const {
 const { validateCard, validateCardId } = require('../utils/validation');
 
 cardsRouter.get('/', getCards);
-cardsRouter.post('/',validateCard, createCard);
+cardsRouter.post('/', validateCard, createCard);
 cardsRouter.delete('/:cardId', validateCardId, deleteCard);
 cardsRouter.put('/:cardId/likes', validateCardId, likeCard);
 cardsRouter.delete('/:cardId/likes', validateCardId, dislikeCard);
