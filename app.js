@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = require('./routes');
 // const { errors } = require('celebrate');
+const auth = require('./middlewars/auth');
 const errorHandler = require('./middlewars/errorHandler');
 
 const { PORT = 3000 } = process.env;
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use(router);
 
 app.use(errorHandler);
-
+app.use(auth);
 app.use((req, res, next) => {
   req.user = {
     _id: '64994b3fbed133c146f3c834'
