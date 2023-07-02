@@ -75,7 +75,7 @@ const updateUser = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .then((users) => {
       if (!users) {
-        return next(new NotFoundError('Пользователь не найден'));
+        throw next(new NotFoundError('Пользователь не найден'));
       }
       return res.send({ data: users });
     })
@@ -92,7 +92,7 @@ const updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .then((users) => {
       if (!users) {
-        return next(new NotFoundError('Пользователь не найден'));
+        throw next(new NotFoundError('Пользователь не найден'));
       }
       return res.send({ data: users });
     })
