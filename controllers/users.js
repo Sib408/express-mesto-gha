@@ -2,7 +2,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const { STATUS_OK, STATUS_CREATED } = require('../utils/const');
-const { NotFoundError, UnauthorizedError, BadRequestError, ConflictError } = require('../utils/errors/index');
+const {
+  NotFoundError, UnauthorizedError, BadRequestError, ConflictError,
+} = require('../utils/errors/index');
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -61,17 +63,20 @@ const getCurrentUser = (req, res, next) => {
 };
 
 const createUsers = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
-   console.log(req.body);
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
   return bcrypt.hash(password, 10)
-    .then((hash) => User.create({ name, about, avatar, email, password: hash }))
+    .then((hash) => User.create({
+      name, about, avatar, email, password: hash,
+    }))
     .then((user) => res.status(STATUS_CREATED).send({
       data: {
         name: user.name,
         about: user.about,
         avatar: user.avatar,
-        email: user.email
-      }
+        email: user.email,
+      },
     }))
     .catch((err) => {
       if (err.code === 11000) {
@@ -119,5 +124,5 @@ const updateAvatar = (req, res, next) => {
 };
 
 module.exports = {
-  getUsers, getUserById, createUsers, updateUser, updateAvatar, getCurrentUser, login
+  getUsers, getUserById, createUsers, updateUser, updateAvatar, getCurrentUser, login,
 };
