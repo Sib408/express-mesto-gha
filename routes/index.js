@@ -3,7 +3,7 @@ const { errors } = require('celebrate');
 const { NotFoundError } = require('../utils/errors/index');
 const { validateLogin, validateUser } = require('../utils/validation');
 const { login, createUsers } = require('../controllers/users');
-const validateToken = require('../middlewars/auth');
+const validateToken = require('../middlewares/auth');
 
 const usersRouter = require('./users');
 const cardsRouter = require('./cards');
